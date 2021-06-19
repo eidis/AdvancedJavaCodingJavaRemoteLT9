@@ -1,0 +1,26 @@
+Inheritance, exceptions, polymorphism
+
+Transport
+    - engine
+    - fuel
+    WaterTransport
+        Boat
+    LandTransport
+        - numberOfWheels
+        Vehicle
+            - body
+            - year
+            - transmission
+            Volkswagen
+                VolkswagenGolf
+                VolkswagenBora
+            Audi
+                Audi100
+            Lada
+                LadaNiva
+        Bike
+        Scooter
+            ElectricScooter
+            PetrolScooter
+    AirTransport
+        Plane

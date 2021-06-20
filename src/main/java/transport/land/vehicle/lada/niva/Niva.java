@@ -1,5 +1,8 @@
 package transport.land.vehicle.lada.niva;
 
+import power.Engine;
+import transport.Body;
+import transport.Transmission;
 import transport.land.vehicle.lada.Lada;
 
 /***
@@ -9,8 +12,8 @@ import transport.land.vehicle.lada.Lada;
  */
 public class Niva extends Lada {
 
-    public Niva(String engine, String fuel, String body, Integer year, String transmission) {
-        super(engine, fuel, body, year, transmission);
+    public Niva(Engine engine, Body body, Integer year, Transmission transmission) {
+        super(engine, body, year, transmission);
     }
 
 }

@@ -1,5 +1,6 @@
 package transport.land.scooter;
 
+import power.Engine;
 import transport.land.LandTransport;
 
 /***
@@ -9,8 +10,8 @@ import transport.land.LandTransport;
  */
 public class Scooter extends LandTransport {
 
-    public Scooter(String engine, String fuel) {
-        super(engine, fuel, 2);
+    public Scooter(Engine engine) {
+        super(engine, 2);
     }
 
 }

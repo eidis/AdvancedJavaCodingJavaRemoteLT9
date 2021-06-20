@@ -1,5 +1,8 @@
 package transport.land.vehicle.lada;
 
+import power.Engine;
+import transport.Body;
+import transport.Transmission;
 import transport.land.vehicle.Vehicle;
 
 /***
@@ -9,9 +12,8 @@ import transport.land.vehicle.Vehicle;
  */
 public class Lada extends Vehicle {
 
-    public Lada(String engine, String fuel, String body, Integer year,
-                String transmission) {
-        super(engine, fuel, body, year, transmission, "Lada");
+    public Lada(Engine engine, Body body, Integer year, Transmission transmission) {
+        super(engine, body, year, transmission, "Lada");
     }
 
 }

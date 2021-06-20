@@ -1,6 +1,9 @@
 package transport.land.vehicle.audi.hundred;
 
 
+import power.Engine;
+import transport.Body;
+import transport.Transmission;
 import transport.land.vehicle.audi.Audi;
 
 /***
@@ -10,8 +13,8 @@ import transport.land.vehicle.audi.Audi;
  */
 public class Hundred extends Audi {
 
-    public Hundred(String engine, String fuel, String body, Integer year, String transmission) {
-        super(engine, fuel, body, year, transmission, "100");
+    public Hundred(Engine engine, Body body, Integer year, Transmission transmission) {
+        super(engine, body, year, transmission, "100");
     }
 
 }

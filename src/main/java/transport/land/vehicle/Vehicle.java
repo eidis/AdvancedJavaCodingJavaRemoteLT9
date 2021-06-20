@@ -1,5 +1,8 @@
 package transport.land.vehicle;
 
+import power.Engine;
+import transport.Body;
+import transport.Transmission;
 import transport.land.LandTransport;
 
 /***
@@ -10,20 +13,20 @@ import transport.land.LandTransport;
 public class Vehicle extends LandTransport {
 
     private final String manufacturer;
-    private final String body;
-    private final Integer year;
-    private final String transmission;
+    private final Body body;
+    private final int year;
+    private final Transmission transmission;
 
-    public Vehicle(String engine, String fuel, String body, Integer year, String transmission,
-                   String manufacturer) {
-        super(engine, fuel, 4);
+    public Vehicle(Engine engine, Body body, int year,
+                   Transmission transmission, String manufacturer) {
+        super(engine, 4);
         this.body = body;
         this.year = year;
         this.transmission = transmission;
         this.manufacturer = manufacturer;
     }
 
-    public String getBody() {
+    public Body getBody() {
         return body;
     }
 
@@ -31,7 +34,7 @@ public class Vehicle extends LandTransport {
         return year;
     }
 
-    public String getTransmission() {
+    public Transmission getTransmission() {
         return transmission;
     }
 

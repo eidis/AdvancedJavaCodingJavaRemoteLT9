@@ -1,5 +1,8 @@
 package transport.land.vehicle.volkswagen;
 
+import power.Engine;
+import transport.Body;
+import transport.Transmission;
 import transport.land.vehicle.Vehicle;
 
 /***
@@ -9,9 +12,8 @@ import transport.land.vehicle.Vehicle;
  */
 public class Volkswagen extends Vehicle {
 
-    public Volkswagen(String engine, String fuel, String body, Integer year,
-                      String transmission) {
-        super(engine, fuel, body, year, transmission, "Volkswagen");
+    public Volkswagen(Engine engine, Body body, Integer year, Transmission transmission) {
+        super(engine, body, year, transmission, "Volkswagen");
     }
 
 }

@@ -1,5 +1,6 @@
 package transport.land.bike.tricycle;
 
+import power.Engine;
 import transport.land.bike.Bike;
 
 /***
@@ -9,8 +10,8 @@ import transport.land.bike.Bike;
  */
 public class Tricycle extends Bike {
 
-    public Tricycle(String engine, String fuel) {
-        super(engine, fuel, 3);
+    public Tricycle(Engine engine) {
+        super(engine, 3);
     }
 
 }

@@ -1,7 +1,7 @@
 Create enumerations for fuel, body and transmission
     Fuel: DIESEL, PETROL, ELECTRICITY
-    Transmission: MANUAL, AUTOMATIC
-    Body: SEDAN, HATCHBACK, SALOON
+    transport.Transmission: MANUAL, AUTOMATIC
+    transport.Body: SEDAN, HATCHBACK, SALOON
 
 Create interfaces
     Movable (Transport implements Movable)

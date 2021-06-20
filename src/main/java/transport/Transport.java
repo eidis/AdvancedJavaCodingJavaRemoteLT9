@@ -1,27 +1,33 @@
 package transport;
 
+import power.Engine;
+
 /***
  *
  * @author Ignas Ivoska
  *
  */
-public class Transport {
+public class Transport implements Movable {
 
-    // No engine, engine
-    private final String engine;
-    // Diesel, petrol, electric
-    private final String fuel;
+    private final Engine engine;
+    private int movedDistance = 0;
 
-    public Transport(String engine, String fuel) {
+    public Transport(Engine engine) {
         this.engine = engine;
-        this.fuel = fuel;
     }
 
-    public String getEngine() {
+    public Engine getEngine() {
         return engine;
     }
 
-    public String getFuel() {
-        return fuel;
+    @Override
+    public void move(int meters) {
+        movedDistance += meters;
     }
+
+    @Override
+    public int getTotalMetersMoved() {
+        return movedDistance;
+    }
+
 }

@@ -1,0 +1,17 @@
+Upgrade our transport to use the engine
+    Create interface MovedWithEngine
+        extends Movable
+        Engine getEngine();
+
+Remove engine from all Transport
+    In transport that requires an engine, add MovedWithEngine to the lowest level
+    (e.g. a Golf needs an engine, but so do all Volkswagens, and so do all Vehicles)
+
+In MovedWithEngine, create a default implementation for move, which works the engine first
+
+# Advanced version #
+Different approach to engine
+Change Powered<T> method getFuel() to getPowerSource()
+In the lowest levels that require an engine, add "implements Powered<Engine>"
+
+our Transport will now be powered by an Engine which is powered by fuel

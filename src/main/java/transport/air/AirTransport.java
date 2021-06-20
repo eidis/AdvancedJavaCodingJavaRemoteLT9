@@ -1,5 +1,7 @@
 package transport.air;
 
+import power.Engine;
+import transport.CanFly;
 import transport.Transport;
 
 /***
@@ -7,10 +9,10 @@ import transport.Transport;
  * @author Ignas Ivoska
  *
  */
-public class AirTransport extends Transport {
+public class AirTransport extends Transport implements CanFly {
 
-    public AirTransport(String engine, String fuel) {
-        super(engine, fuel);
+    public AirTransport(Engine engine) {
+        super(engine);
     }
 
 }

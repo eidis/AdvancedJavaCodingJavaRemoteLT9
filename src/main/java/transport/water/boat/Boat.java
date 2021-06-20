@@ -1,5 +1,6 @@
 package transport.water.boat;
 
+import power.Engine;
 import transport.water.WaterTransport;
 
 /***
@@ -9,8 +10,8 @@ import transport.water.WaterTransport;
  */
 public class Boat extends WaterTransport {
 
-    public Boat(String engine, String fuel) {
-        super(engine, fuel);
+    public Boat(Engine engine) {
+        super(engine);
     }
 
 }

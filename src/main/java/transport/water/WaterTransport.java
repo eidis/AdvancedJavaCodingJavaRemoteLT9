@@ -1,5 +1,7 @@
 package transport.water;
 
+import power.Engine;
+import transport.CanSwim;
 import transport.Transport;
 
 /***
@@ -7,10 +9,10 @@ import transport.Transport;
  * @author Ignas Ivoska
  *
  */
-public class WaterTransport extends Transport {
+public class WaterTransport extends Transport implements CanSwim {
 
-    public WaterTransport(String engine, String fuel) {
-        super(engine, fuel);
+    public WaterTransport(Engine engine) {
+        super(engine);
     }
 
 }

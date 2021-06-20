@@ -1,5 +1,8 @@
 package transport.land.vehicle.volkswagen.golf;
 
+import power.Engine;
+import transport.Body;
+import transport.Transmission;
 import transport.land.vehicle.volkswagen.Volkswagen;
 
 /***
@@ -9,8 +12,8 @@ import transport.land.vehicle.volkswagen.Volkswagen;
  */
 public class Golf extends Volkswagen {
 
-    public Golf(String engine, String fuel, String body, Integer year, String transmission) {
-        super(engine, fuel, body, year, transmission);
+    public Golf(Engine engine, Body body, Integer year, Transmission transmission) {
+        super(engine, body, year, transmission);
     }
 
 }

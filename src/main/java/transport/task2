@@ -4,19 +4,25 @@ Create enumerations for fuel, body and transmission
     Body: SEDAN, HATCHBACK, SALOON
 
 Create interfaces
-    Movable (what should implement this?)
+    Movable (Transport implements Movable)
         void move(int meters)
         int getTotalMetersMoved()
-    CanDrive (what should implement this?)
-        void drive(int meters)
-    CanFly (what should implement this?)
+    CanDrive extends Movable (LandTransport implements CanDrive)
+        int getNumberOfWheels()
+        default void drive(int meters) {
+            move(meters)
+        }
+    CanFly extends Movable (AirTransport implements CanFly)
         void fly(int meters)
-    CanSwim (what should implement this?)
+    CanSwim extends Movable (WaterTransport implements CanSwim)
         void swim(int meters)
 
 Upgrade our Plane class
-    In order for a plane to fly, it first needs to drive 100 meters
-    After flight, it drives another 100
+    Plane extends AirTransport implements CanDrive
+    plane.fly(int meters)
+        pavaziuoja 100
+        nuskrenda meters
+        pavaziuoja 100
 
 Upgrade transport engine using generics
     Create Powered<T> interface
@@ -24,7 +30,8 @@ Upgrade transport engine using generics
         boolean hasPower();
         void work();
     Create Engine class
-        should be powered by Fuel enum (Powered<Fuel>)
+        should be powered by Fuel enum
+        public class Engine implements Powered<Fuel>
     Add the engine to Transport
         remove String engine and String fuel fields
         add Engine engine field

@@ -3,13 +3,16 @@ package car;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class CarServiceTest {
 
     private static final Car CAR_1 = new Car("V8", "RED", 1999);
     private static final Car CAR_2 = new Car("V12", "BLUE", 2018);
-    private static final Car CAR_3 = new Car("V6", "YELLOW", 2001);
+    private static final Car CAR_3 = new Car("V12", "YELLOW", 2001);
 
     private CarService carService;
 
@@ -40,5 +43,18 @@ class CarServiceTest {
         carService.removeCar(CAR_2);
         assertEquals(2, carService.getListOfCars().size());
         assertEquals(-1, carService.getListOfCars().indexOf(CAR_2));
+    }
+
+    @Test
+    void testFindCarsWithV12Engine() {
+        carService.addCar(CAR_1);
+        carService.addCar(CAR_2);
+        carService.addCar(CAR_3);
+        assertEquals(3, carService.getListOfCars().size());
+
+        List<Car> v12Cars = carService.getCarsWithV12Engine();
+        assertEquals(2, v12Cars.size());
+        assertNotEquals(-1, v12Cars.indexOf(CAR_2));
+        assertNotEquals(-1, v12Cars.indexOf(CAR_3));
     }
 }

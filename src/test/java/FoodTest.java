@@ -1,18 +1,20 @@
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 /***
-*
-* @author Ignas Ivoska
-*
-*/
+ *
+ * @author Ignas Ivoska
+ *
+ */
 class FoodTest {
 
     @Test
     void someTest() {
-        String something = null;
+        assertThrows(NullPointerException.class, () -> {
+            String something = null;
 
-        something.startsWith("blablabla");
+            something.startsWith("blablabla");
+        });
     }
-  
 }

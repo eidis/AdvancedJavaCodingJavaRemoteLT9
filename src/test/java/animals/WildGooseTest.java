@@ -31,4 +31,15 @@ class WildGooseTest {
                 .map(CanMakeSound::getSound)
                 .collect(Collectors.joining(",")));
     }
+
+    @Test
+    void checkGooseFlight() {
+        WildGoose wildGoose = new WildGoose(4);
+        wildGoose.fly();
+        wildGoose.fly();
+        wildGoose.fly();
+        wildGoose.fly();
+        wildGoose.fly();
+        assertEquals(20, wildGoose.getDistance());
+    }
 }

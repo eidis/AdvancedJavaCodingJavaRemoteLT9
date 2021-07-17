@@ -7,17 +7,29 @@ package animals;
  */
 public class WildGoose extends Animal implements CanFly, CanSwim {
 
+    private final CanSwim swimLogic = new WildGooseSwimLogic();
+    private final WildGooseFlyLogic flyLogic;
+
     public WildGoose() {
+        this(1);
+    }
+
+    public WildGoose(int speed) {
         super("Quack");
+        this.flyLogic = new WildGooseFlyLogic(speed);
     }
 
     @Override
     public void fly() {
-        System.out.println("I'm flying!");
+        flyLogic.fly();
     }
 
     @Override
     public void swim() {
-        System.out.println("I am swimming!");
+        swimLogic.swim();
+    }
+
+    public int getDistance() {
+        return flyLogic.getDistance();
     }
 }

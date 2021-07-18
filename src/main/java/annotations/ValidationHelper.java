@@ -61,4 +61,8 @@ public class ValidationHelper {
         int lastDot = email.lastIndexOf('.');
         return lastDot >= eta && lastDot < email.length() - 1;
     }
+
+    static boolean isValidPassword(String password) {
+        return true;
+    }
 }

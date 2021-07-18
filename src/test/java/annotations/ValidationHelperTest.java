@@ -1,6 +1,7 @@
 package annotations;
 
 import annotations.annotations.Email;
+import annotations.annotations.Max;
 import annotations.annotations.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,7 @@ class ValidationHelperTest {
         private String email;
 
         @Min(18)
+        @Max(65)
         private int age;
     }
 
@@ -34,6 +36,7 @@ class ValidationHelperTest {
         assertTrue(validateObject(new ValidatedClass(2, "John", "a@b.c", 25)));
 
         assertFalse(validateObject(new ValidatedClass(2, "Suzy", "a@b.c", 12)));
+        assertFalse(validateObject(new ValidatedClass(2, "Jenny", "a@b.c", 70)));
         assertTrue(validateObject(new ValidatedClass(2, "Jenny", "a@b.c", 30)));
     }
 

@@ -1,6 +1,8 @@
 package annotations;
 
 import annotations.annotations.Email;
+import annotations.annotations.Max;
+import annotations.annotations.Min;
 
 import java.lang.reflect.Field;
 
@@ -11,6 +13,18 @@ public class ValidationHelper {
         for (Field field : clazz.getDeclaredFields()) {
             if (field.isAnnotationPresent(Email.class)) {
                 if (!isValidEmail((String) getValue(field, object))) {
+                    return false;
+                }
+            }
+            if (field.isAnnotationPresent(Min.class)) {
+                Min min = field.getAnnotation(Min.class);
+                if ((int) getValue(field, object) < min.value()) {
+                    return false;
+                }
+            }
+            if (field.isAnnotationPresent(Max.class)) {
+                Max max = field.getAnnotation(Max.class);
+                if ((int) getValue(field, object) > max.value()) {
                     return false;
                 }
             }

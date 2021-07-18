@@ -1,6 +1,7 @@
 package annotations;
 
 import annotations.annotations.Email;
+import annotations.annotations.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
@@ -22,12 +23,18 @@ class ValidationHelperTest {
 
         @Email
         private String email;
+
+        @Min(18)
+        private int age;
     }
 
     @Test
     void testValidation() {
-        assertFalse(validateObject(new ValidatedClass(1, "Tom", "blabla")));
-        assertTrue(validateObject(new ValidatedClass(2, "John", "a@b.c")));
+        assertFalse(validateObject(new ValidatedClass(1, "Tom", "blabla", 25)));
+        assertTrue(validateObject(new ValidatedClass(2, "John", "a@b.c", 25)));
+
+        assertFalse(validateObject(new ValidatedClass(2, "Suzy", "a@b.c", 12)));
+        assertTrue(validateObject(new ValidatedClass(2, "Jenny", "a@b.c", 30)));
     }
 
     @Test

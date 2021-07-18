@@ -1,5 +1,8 @@
 package annotations;
 
+import annotations.annotations.RunMethod;
+import annotations.annotations.WrapSystemOutput;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 

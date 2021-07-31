@@ -10,16 +10,23 @@ import java.util.regex.Pattern;
 
 public class ValidationHelper {
 
-    private static Pattern LOWER_CASE_PATTERN = Pattern.compile("[a-z]");
-    private static Pattern UPPER_CASE_PATTERN = Pattern.compile("[A-Z]");
-    private static Pattern NUMBER_PATTERN = Pattern.compile("[0-9]");
-    private static Pattern SPECIAL_SYMBOLS_PATTERN = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+    private static final Pattern LOWER_CASE_PATTERN = Pattern.compile("[a-z]");
+    private static final Pattern UPPER_CASE_PATTERN = Pattern.compile("[A-Z]");
+    private static final Pattern NUMBER_PATTERN = Pattern.compile("[0-9]");
+    private static final Pattern SPECIAL_SYMBOLS_PATTERN = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
 
     public static boolean validateObject(Object object) {
         Class clazz = object.getClass();
         for (Field field : clazz.getDeclaredFields()) {
             if (field.isAnnotationPresent(Password.class)) {
-                if (!isValidPassword((String) getValue(field, object))) {
+                Password password = field.getAnnotation(Password.class);
+                if (!isValidPassword(
+                        (String) getValue(field, object),
+                        password.length(),
+                        password.requireAlphaNumeric(),
+                        password.requireSpecialSymbol(),
+                        password.requireLowerAndUpperCase()
+                )) {
                     return false;
                 }
             }
@@ -74,11 +81,21 @@ public class ValidationHelper {
         return lastDot >= eta && lastDot < email.length() - 1;
     }
 
-    static boolean isValidPassword(String password) {
-        if (password.length() < 8) return false;
-        if (!LOWER_CASE_PATTERN.matcher(password).find()) return false;
-        if (!UPPER_CASE_PATTERN.matcher(password).find()) return false;
-        if (!NUMBER_PATTERN.matcher(password).find()) return false;
-        return SPECIAL_SYMBOLS_PATTERN.matcher(password).find();
+    static boolean isValidPassword(
+            String password,
+            int minLength,
+            boolean requireAlphaNumeric,
+            boolean requireSpecialSymbols,
+            boolean requireLowerAndUpperCase
+    ) {
+        if (password.length() < minLength) return false;
+
+        boolean hasLowerCaseLetter = LOWER_CASE_PATTERN.matcher(password).find();
+        boolean hasUpperCaseLetter = UPPER_CASE_PATTERN.matcher(password).find();
+        boolean hasNumbers = NUMBER_PATTERN.matcher(password).find();
+
+        if (requireAlphaNumeric && (!(hasLowerCaseLetter || hasUpperCaseLetter) || !hasNumbers)) return false;
+        if (requireSpecialSymbols && !SPECIAL_SYMBOLS_PATTERN.matcher(password).find()) return false;
+        return !requireLowerAndUpperCase || (hasLowerCaseLetter && hasUpperCaseLetter);
     }
 }

@@ -8,7 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
 
-import static annotations.ValidationHelper.*;
+import static annotations.ValidationHelper.isValidEmail;
+import static annotations.ValidationHelper.validateObject;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -31,23 +32,34 @@ class ValidationHelperTest {
 
         @Password
         private String password;
+
+        @Password(
+                length = 10,
+                requireAlphaNumeric = false,
+                requireSpecialSymbol = false,
+                requireLowerAndUpperCase = false)
+        private String password2;
     }
 
     private static final int VALID_AGE = 25;
     private static final String VALID_EMAIL = "info@test.com";
     private static final String VALID_PASSWORD = "Abc@123!";
+    private static final String VALID_PASSWORD2 = "0123456789";
 
     @Test
     void testValidation() {
-        assertFalse(validateObject(new ValidatedClass(1, "Tom", "blabla", VALID_AGE, VALID_PASSWORD)));
-        assertTrue(validateObject(new ValidatedClass(2, "John", VALID_EMAIL, VALID_AGE, VALID_PASSWORD)));
+        assertFalse(validateObject(new ValidatedClass(1, "Tom", "blabla", VALID_AGE, VALID_PASSWORD, VALID_PASSWORD2)));
+        assertTrue(validateObject(new ValidatedClass(2, "John", VALID_EMAIL, VALID_AGE, VALID_PASSWORD, VALID_PASSWORD2)));
 
-        assertFalse(validateObject(new ValidatedClass(3, "Suzy", VALID_EMAIL, 12, VALID_PASSWORD)));
-        assertFalse(validateObject(new ValidatedClass(4, "Jenny", VALID_EMAIL, 70, VALID_PASSWORD)));
-        assertTrue(validateObject(new ValidatedClass(5, "Will", VALID_EMAIL, VALID_AGE, VALID_PASSWORD)));
+        assertFalse(validateObject(new ValidatedClass(3, "Suzy", VALID_EMAIL, 12, VALID_PASSWORD, VALID_PASSWORD2)));
+        assertFalse(validateObject(new ValidatedClass(4, "Jenny", VALID_EMAIL, 70, VALID_PASSWORD, VALID_PASSWORD2)));
+        assertTrue(validateObject(new ValidatedClass(5, "Will", VALID_EMAIL, VALID_AGE, VALID_PASSWORD, VALID_PASSWORD2)));
 
-        assertFalse(validateObject(new ValidatedClass(6, "Kelly", VALID_EMAIL, VALID_AGE, "abc")));
-        assertTrue(validateObject(new ValidatedClass(7, "Rony", VALID_EMAIL, VALID_AGE, VALID_PASSWORD)));
+        assertFalse(validateObject(new ValidatedClass(6, "Kelly", VALID_EMAIL, VALID_AGE, "abc", VALID_PASSWORD2)));
+        assertTrue(validateObject(new ValidatedClass(7, "Rony", VALID_EMAIL, VALID_AGE, VALID_PASSWORD, VALID_PASSWORD2)));
+
+        assertFalse(validateObject(new ValidatedClass(6, "Kelly", VALID_EMAIL, VALID_AGE, VALID_PASSWORD, "012345678")));
+        assertTrue(validateObject(new ValidatedClass(6, "Kelly", VALID_EMAIL, VALID_AGE, VALID_PASSWORD, VALID_PASSWORD2)));
     }
 
     @Test
@@ -80,5 +92,24 @@ class ValidationHelperTest {
         assertTrue(isValidPassword("Abc?123!"));
         assertTrue(isValidPassword("Abc?123!isdfih1"));
         assertTrue(isValidPassword("AbC1?@4156ajfh"));
+
+        assertFalse(ValidationHelper.isValidPassword("password", 10, false, false, false));
+        assertTrue(ValidationHelper.isValidPassword("password12", 10, false, false, false));
+
+        assertFalse(ValidationHelper.isValidPassword("asd", 0, true, false, false));
+        assertFalse(ValidationHelper.isValidPassword("123", 0, true, false, false));
+        assertTrue(ValidationHelper.isValidPassword("asd123", 0, true, false, false));
+        assertTrue(ValidationHelper.isValidPassword("ASD123", 0, true, false, false));
+
+        assertFalse(ValidationHelper.isValidPassword("password", 0, false, true, false));
+        assertTrue(ValidationHelper.isValidPassword("password!", 0, false, true, false));
+
+        assertFalse(ValidationHelper.isValidPassword("password", 0, false, false, true));
+        assertFalse(ValidationHelper.isValidPassword("PASSWORD", 0, false, false, true));
+        assertTrue(ValidationHelper.isValidPassword("Password", 0, false, false, true));
+    }
+
+    private static boolean isValidPassword(String password) {
+        return ValidationHelper.isValidPassword(password, 8, true, true, true);
     }
 }

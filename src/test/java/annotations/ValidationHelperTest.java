@@ -69,7 +69,16 @@ class ValidationHelperTest {
 
     @Test
     void testPasswordValidation() {
-        assertFalse(isValidPassword(""));
-        assertTrue(isValidEmail(VALID_PASSWORD));
+        assertFalse(isValidPassword("abc"));
+        assertFalse(isValidPassword("abcDEF"));
+        assertFalse(isValidPassword("1234567890"));
+        assertFalse(isValidPassword("abcD1234"));
+        assertFalse(isValidPassword("Abc?1!@"));
+        assertFalse(isValidPassword("ABDCDEFGH123?!@#"));
+
+        assertTrue(isValidPassword(VALID_PASSWORD));
+        assertTrue(isValidPassword("Abc?123!"));
+        assertTrue(isValidPassword("Abc?123!isdfih1"));
+        assertTrue(isValidPassword("AbC1?@4156ajfh"));
     }
 }
